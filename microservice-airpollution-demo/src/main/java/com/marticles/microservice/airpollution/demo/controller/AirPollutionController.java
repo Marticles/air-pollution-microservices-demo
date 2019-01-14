@@ -1,0 +1,73 @@
+package com.marticles.microservice.airpollution.demo.controller;
+
+
+import com.marticles.microservice.airpollution.demo.model.Pm25;
+import com.marticles.microservice.airpollution.demo.model.Pollution;
+import com.marticles.microservice.airpollution.demo.model.Site;
+import com.marticles.microservice.airpollution.demo.service.ForecastService;
+import com.marticles.microservice.airpollution.demo.service.HistoryService;
+import com.marticles.microservice.airpollution.demo.service.SitesService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+
+import java.util.List;
+
+/**
+ * @author Marticles
+ * @description PollutionController
+ * @date 2019/1/13
+ */
+@Controller
+public class AirPollutionController {
+
+    @Autowired
+    ForecastService forecastService;
+
+    @Autowired
+    HistoryService historyService;
+
+    @Autowired
+    SitesService sitesService;
+
+    @RequestMapping("/history")
+    public ModelAndView historyIndex(@RequestParam String site,
+                                     @RequestParam String startTime,
+                                     @RequestParam String endTime,
+                                     Model model) {
+        List<Pollution> pollutionList = historyService.getPollutionBySiteAndTime(site,startTime,endTime);
+        if (pollutionList.size() != 0) {
+            model.addAttribute("flag", "true");
+        }
+        model.addAttribute("pollutionList", pollutionList);
+        model.addAttribute("sites", sitesService.getSites());
+        model.addAttribute("info", pollutionList.get(0));
+        return new ModelAndView("history", "pollutionModel", model);
+    }
+
+    @RequestMapping("/forecast")
+    public ModelAndView forecastIndex(@RequestParam String site,
+                                      @RequestParam String startTime,
+                                      @RequestParam String endTime,
+                                      Model model) {
+        List<Pm25> forecastList = forecastService.getPm25BySiteAndTime(site, startTime, endTime);
+        model.addAttribute("forecastList", forecastList);
+        if (forecastList.size() != 0) {
+            model.addAttribute("flag", "true");
+        }
+        List<Site> sites = sitesService.getSites();
+        String request_site = "NULL";
+        for (Site tmp : sites) {
+            if (tmp.getId().equals(site)) {
+                request_site = tmp.getName();
+            }
+        }
+        model.addAttribute("sites", sites);
+        model.addAttribute("request_site", request_site);
+        return new ModelAndView("forecast", "forecastModel", model);
+    }
+
+}

@@ -11,10 +11,12 @@
     <div class="container">
         <span class="navbar-brand mb-0 h1">💨 AirPollution Spring Cloud Demo</span>
         <div class="col-md-2 form-group" style="margin-top:15px;margin-left:80px;margin-right:-100px">
-            <input type="text" class="form-control" id="start_time" placeholder="2017-05-10 08:00" value="2017-05-10 08:00">
+            <input type="text" class="form-control" id="start_time" placeholder="2017-05-10 08:00"
+                   value="2017-05-10 08:00">
         </div>
         <div class="col-md-2 form-group" style="margin-top:15px;margin-left:-2px;margin-right:-50px">
-            <input type="text" class="form-control" id="end_time" placeholder="2017-05-10 12:00" value="2017-05-10 13:00">
+            <input type="text" class="form-control" id="end_time" placeholder="2017-05-10 12:00"
+                   value="2017-05-10 13:00">
         </div>
         <div style="margin-right:-80px;margin-left:0px">
             <select class="custom-select" id="select-site">
@@ -32,17 +34,17 @@
 </nav>
 <div class="container">
 
-    <div id="title" style="margin: 35px 0">
+    <div id="today" style="margin: 35px 0">
         <div class="text-center">
-            <h1 class="text-primary" th:text="'当前监测站：'+${info.site}"></h1>
-            <p class="h5">上海市环境污染物监测数据</p>
+            <h1 class="text-primary" th:text="'当前监测站：'+${request_site}+'监测站'"></h1>
+            <p class="h5">上海市PM2.5浓度预测数据</p>
         </div>
     </div>
 
     <div class="container" th:if="${flag == null}">
         <div style="margin: 120px 0">
             <div class="text-center">
-                <h2 class="text-danger">📢 服务暂不可用，请稍后再试...</h2>
+                <h2 class="text-danger">📢 API服务暂不可用</h2>
             </div>
         </div>
     </div>
@@ -50,25 +52,21 @@
     <div id="data" th:if="${flag != null}">
         <div class="row">
             <div class="card-group" style="margin: 0 auto">
-                <div class="card text-center" style="width: 18rem" th:each="pollution : ${pollutionList}">
+                <div class="card text-center" style="width: 18rem" th:each="forecast : ${forecastList}">
                     <img class="card-img-top" style="height: 200px; width: 100%; display: block;"
-                         th:data-src="'holder.js/100px200/?random=yes&size=20&text=☁️ 空气等级:'+${pollution.level}+' \n '+'️️✨ AQI:'+${pollution.aqi}+' \n '+'💥 首要污染物:'+' \n '+${pollution.primaryPollutant}"
-                         th:alt="${pollution.site}">
+                         th:data-src="'holder.js/100px200/?random=yes&size=20&text=☁️ PM2.5:'+' \n '+${forecast.forecastPm25}">
                     <div class="card-body">
-                        <h5 class="card-title" th:text="'🌎 '+${#dates.format(pollution.time, 'yyyy-MM-dd hh:mm')}">日期</h5>
+                        <h5 class="card-title" th:text="'🌎 '+${#dates.format(forecast.time, 'yyyy-MM-dd hh:mm')}">
+                            日期</h5>
                         <h6 class="card-subtitle mb-2 text-muted">
-                            <span th:text="'【'+${pollution.site}+'】'"></span>
+                            <span th:text="'【'+${request_site}+'监测站】'"></span>
                         </h6>
 
                         <ul class="list-unstyled card-text">
                             <li>
-                                <span th:text="'SO2:'+${pollution.so2}"></span> / <span
-                                    th:text="'CO:'+${pollution.co}"></span>
+                                <span>预测结果仅供参考</span>
                             </li>
-                            <li>
-                                <span th:text="'NO2:'+${pollution.no2}"></span> / <span
-                                    th:text="'SO2:'+${pollution.pm10}"></span>
-                            </li>
+
 
                         </ul>
                     </div>
@@ -79,10 +77,13 @@
 
 </div>
 
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.slim.min.js"></script>
 <script src="https://cdn.bootcss.com/popper.js/1.12.9/umd/popper.min.js"></script>
 <script src="https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<!-- holder.js -->
 <script src="https://cdn.bootcss.com/holder/2.9.4/holder.min.js"></script>
+
 
 </body>
 </html>
@@ -93,7 +94,7 @@
             var end_time = $("#end_time").val();
             var site = $("#select-site").val();
             var type = $("#select-type").val();
-            var url = '/'+type+'?site='+site+'&startTime='+start_time+'&endTime='+end_time;
+            var url = '/' + type + '?site=' + site + '&startTime=' + start_time + '&endTime=' + end_time;
             window.location.href = url;
         })
 
@@ -102,7 +103,7 @@
             var end_time = $("#end_time").val();
             var site = $("#select-site").val();
             var type = $("#select-type").val();
-            var url = '/'+type+'?site='+site+'&startTime='+start_time+'&endTime='+end_time;
+            var url = '/' + type + '?site=' + site + '&startTime=' + start_time + '&endTime=' + end_time;
             window.location.href = url;
         })
     });
