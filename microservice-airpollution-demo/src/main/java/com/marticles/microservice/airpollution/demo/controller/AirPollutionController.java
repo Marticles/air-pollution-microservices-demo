@@ -47,6 +47,9 @@ public class AirPollutionController {
         List<Site> siteList = sitesService.getSites();
         if (null != pollutionList && null != siteList) {
             model.addAttribute("flag", "true");
+            model.addAttribute("info", pollutionList.get(0));
+        }else {
+            model.addAttribute("info", new Pollution());
         }
         model.addAttribute("startTime", startTime);
         model.addAttribute("endTime", endTime);
@@ -54,7 +57,7 @@ public class AirPollutionController {
         model.addAttribute("selected_site", site);
         model.addAttribute("pollutionList", pollutionList);
         model.addAttribute("sites", siteList);
-        model.addAttribute("info", pollutionList.get(0));
+
         return new ModelAndView("history", "pollutionModel", model);
     }
 

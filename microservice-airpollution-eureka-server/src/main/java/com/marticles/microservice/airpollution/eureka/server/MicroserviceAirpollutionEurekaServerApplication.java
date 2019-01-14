@@ -12,5 +12,6 @@ public class MicroserviceAirpollutionEurekaServerApplication {
         SpringApplication.run(MicroserviceAirpollutionEurekaServerApplication.class, args);
     }
 
+
 }
 
