@@ -23,11 +23,11 @@
 ## 截图
 
 ### 历史污染物数据
-![history](img\history.png)
+![history](img/history.png)
 
 ### PM2.5浓度预测数据
-![history](img\forecast.png)
+![history](img/forecast.png)
 
 ### 触发熔断
-![history](img\fail.png)
+![history](img/fail.png)
 
