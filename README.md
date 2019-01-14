@@ -1,11 +1,12 @@
 # air-pollution-microservices
+[![MIT Licence](https://badges.frapsoft.com/os/mit/mit.svg?v=103)](https://opensource.org/licenses/mit-license.php)
+![](https://img.shields.io/badge/language-Java-orange.svg)
 
-基于 Spring Cloud 的历史空气污染物数据查询与PM2.5浓度预测数据查询 Demo
+![history](img/history.png)
+
+基于 Spring Cloud 的历史空气污染物数据查询与PM2.5浓度预测数据查询 Demo，数据来自我的另一个项目 AirNet。
 
 ## 微服务架构
-
-
-## 微服务配置
 
 | 服务                                       | 端口 | 描述                       |
 | :----------------------------------------- | :--- | :------------------------- |
@@ -18,16 +19,9 @@
 | microservice-airpollution-sites-service    | 8083 | 监测站数据查询服务         |
 | monolithic-airpollution-demo               | /    | AirPollution 单体架构      |
 
-
-
-## 截图
-
-### 历史污染物数据
-![history](img/history.png)
-
-### PM2.5浓度预测数据
+## PM2.5浓度预测数据
 ![history](img/forecast.png)
 
-### 触发熔断
+## 触发熔断
 ![history](img/fail.png)
 
