@@ -12,10 +12,10 @@ import java.util.List;
  * @description HistoryService
  * @date 2019/1/14
  */
-@FeignClient("microservice-airpollution-history-server")
+@FeignClient("microservice-airpollution-zuul-gateway")
 public interface HistoryService {
 
-    @GetMapping("/api/history")
+    @GetMapping("/api/v1/history/pollution")
     List<Pollution> getPollutionBySiteAndTime(@RequestParam("site") String site ,
                                               @RequestParam("startTime") String startTime,
                                               @RequestParam("endTime") String endTime);

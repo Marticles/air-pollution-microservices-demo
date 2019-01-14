@@ -20,7 +20,7 @@ public class ForecastController {
     @Autowired
     ForecastService forecastService;
 
-    @RequestMapping("/api/forecast")
+    @RequestMapping("/pm25")
     public List<Pm25> history(@RequestParam String site,
                               @RequestParam String startTime,
                               @RequestParam String endTime) {

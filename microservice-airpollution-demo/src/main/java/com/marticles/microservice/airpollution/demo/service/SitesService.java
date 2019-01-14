@@ -11,10 +11,10 @@ import java.util.List;
  * @description SitesService
  * @date 2019/1/14
  */
-@FeignClient("microservice-airpollution-sites-server")
+@FeignClient("microservice-airpollution-zuul-gateway")
 public interface SitesService {
 
-    @GetMapping("/api/sites")
+    @GetMapping("/api/v1/sites/site")
     List<Site> getSites();
 
 }

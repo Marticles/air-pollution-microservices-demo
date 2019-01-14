@@ -12,10 +12,10 @@ import java.util.List;
  * @description ForecastService
  * @date 2019/1/14
  */
-@FeignClient("microservice-airpollution-forecast-server")
+@FeignClient("microservice-airpollution-zuul-gateway")
 public interface ForecastService {
 
-    @GetMapping("/api/forecast")
+    @GetMapping("/api/v1/forecast/pm25")
     List<Pm25> getPm25BySiteAndTime(@RequestParam("site") String site ,
                                     @RequestParam("startTime") String startTime,
                                     @RequestParam("endTime") String endTime);

@@ -15,7 +15,7 @@ import java.util.List;
 @RestController
 public class SitesController {
 
-    @RequestMapping("/api/sites")
+    @RequestMapping("/site")
     public List<Site> sites(){
         return getSites();
     }

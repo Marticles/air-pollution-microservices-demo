@@ -11,21 +11,21 @@
     <div class="container">
         <span class="navbar-brand mb-0 h1">💨 AirPollution Spring Cloud Demo</span>
         <div class="col-md-2 form-group" style="margin-top:15px;margin-left:80px;margin-right:-100px">
-            <input type="text" class="form-control" id="start_time" placeholder="2017-05-10 08:00" value="2017-05-10 08:00">
+            <input type="text" class="form-control" id="start_time" placeholder="2017-05-10 08:00" value="2017-05-10 08:00" th:value="${startTime}">
         </div>
         <div class="col-md-2 form-group" style="margin-top:15px;margin-left:-2px;margin-right:-50px">
-            <input type="text" class="form-control" id="end_time" placeholder="2017-05-10 12:00" value="2017-05-10 13:00">
+            <input type="text" class="form-control" id="end_time" placeholder="2017-05-10 12:00" value="2017-05-10 13:00" th:value="${endTime}">
         </div>
         <div style="margin-right:-80px;margin-left:0px">
             <select class="custom-select" id="select-site">
                 <option th:each="site : ${sites}" th:value="${site.id}" th:text="${site.name}"
-                ></option>
+                        th:selected="${selected_site eq site.id}"></option>
             </select>
         </div>
         <div>
             <select class="custom-select" id="select-type">
-                <option value="history">历史数据</option>
-                <option value="forecast">预测数据</option>
+                <option value="history" th:selected="${type eq 'history'}">历史数据</option>
+                <option value="forecast" th:selected="${type eq 'forecast'}">预测数据</option>
             </select>
         </div>
     </div>

@@ -20,7 +20,7 @@ public class HistoryController {
     @Autowired
     HistoryService historyService;
 
-    @RequestMapping("/api/history")
+    @RequestMapping("/pollution")
     public List<Pollution> history(@RequestParam String site,
                                      @RequestParam String startTime,
                                      @RequestParam String endTime) {

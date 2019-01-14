@@ -33,6 +33,11 @@ public class AirPollutionController {
     @Autowired
     SitesService sitesService;
 
+    @RequestMapping("/")
+    public String index(){
+        return "redirect:/history?site=jingan&startTime=2017-05-10%2008:00&endTime=2017-05-10%2013:00";
+    }
+
     @RequestMapping("/history")
     public ModelAndView historyIndex(@RequestParam String site,
                                      @RequestParam String startTime,
@@ -42,6 +47,10 @@ public class AirPollutionController {
         if (pollutionList.size() != 0) {
             model.addAttribute("flag", "true");
         }
+        model.addAttribute("startTime",startTime);
+        model.addAttribute("endTime",endTime);
+        model.addAttribute("type","history");
+        model.addAttribute("selected_site",site);
         model.addAttribute("pollutionList", pollutionList);
         model.addAttribute("sites", sitesService.getSites());
         model.addAttribute("info", pollutionList.get(0));
@@ -65,6 +74,10 @@ public class AirPollutionController {
                 request_site = tmp.getName();
             }
         }
+        model.addAttribute("startTime",startTime);
+        model.addAttribute("endTime",endTime);
+        model.addAttribute("type","forecast");
+        model.addAttribute("selected_site",site);
         model.addAttribute("sites", sites);
         model.addAttribute("request_site", request_site);
         return new ModelAndView("forecast", "forecastModel", model);
