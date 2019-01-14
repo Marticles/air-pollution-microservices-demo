@@ -36,7 +36,7 @@
 
     <div id="today" style="margin: 35px 0">
         <div class="text-center">
-            <h1 class="text-primary" th:text="'当前监测站：'+${request_site}+'监测站'"></h1>
+            <h1 class="text-primary" th:text="'当前监测站：'+${request_site}"></h1>
             <p class="h5">上海市PM2.5浓度预测数据</p>
         </div>
     </div>
@@ -44,7 +44,7 @@
     <div class="container" th:if="${flag == null}">
         <div style="margin: 120px 0">
             <div class="text-center">
-                <h2 class="text-danger">📢 API服务暂不可用</h2>
+                <h2 class="text-danger">📢 API服务暂不可用，触发熔断...</h2>
             </div>
         </div>
     </div>

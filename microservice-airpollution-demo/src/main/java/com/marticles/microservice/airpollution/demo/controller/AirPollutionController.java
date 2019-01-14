@@ -34,7 +34,7 @@ public class AirPollutionController {
     SitesService sitesService;
 
     @RequestMapping("/")
-    public String index(){
+    public String index() {
         return "redirect:/history?site=jingan&startTime=2017-05-10%2008:00&endTime=2017-05-10%2013:00";
     }
 
@@ -43,16 +43,17 @@ public class AirPollutionController {
                                      @RequestParam String startTime,
                                      @RequestParam String endTime,
                                      Model model) {
-        List<Pollution> pollutionList = historyService.getPollutionBySiteAndTime(site,startTime,endTime);
-        if (pollutionList.size() != 0) {
+        List<Pollution> pollutionList = historyService.getPollutionBySiteAndTime(site, startTime, endTime);
+        List<Site> siteList = sitesService.getSites();
+        if (null != pollutionList && null != siteList) {
             model.addAttribute("flag", "true");
         }
-        model.addAttribute("startTime",startTime);
-        model.addAttribute("endTime",endTime);
-        model.addAttribute("type","history");
-        model.addAttribute("selected_site",site);
+        model.addAttribute("startTime", startTime);
+        model.addAttribute("endTime", endTime);
+        model.addAttribute("type", "history");
+        model.addAttribute("selected_site", site);
         model.addAttribute("pollutionList", pollutionList);
-        model.addAttribute("sites", sitesService.getSites());
+        model.addAttribute("sites", siteList);
         model.addAttribute("info", pollutionList.get(0));
         return new ModelAndView("history", "pollutionModel", model);
     }
@@ -63,22 +64,22 @@ public class AirPollutionController {
                                       @RequestParam String endTime,
                                       Model model) {
         List<Pm25> forecastList = forecastService.getPm25BySiteAndTime(site, startTime, endTime);
+        List<Site> siteList = sitesService.getSites();
         model.addAttribute("forecastList", forecastList);
-        if (forecastList.size() != 0) {
+        String request_site = "null";
+        if (null != forecastList && null != siteList) {
             model.addAttribute("flag", "true");
-        }
-        List<Site> sites = sitesService.getSites();
-        String request_site = "NULL";
-        for (Site tmp : sites) {
-            if (tmp.getId().equals(site)) {
-                request_site = tmp.getName();
+            for (Site tmp : siteList) {
+                if (tmp.getId().equals(site)) {
+                    request_site = tmp.getName();
+                }
             }
         }
-        model.addAttribute("startTime",startTime);
-        model.addAttribute("endTime",endTime);
-        model.addAttribute("type","forecast");
-        model.addAttribute("selected_site",site);
-        model.addAttribute("sites", sites);
+        model.addAttribute("startTime", startTime);
+        model.addAttribute("endTime", endTime);
+        model.addAttribute("type", "forecast");
+        model.addAttribute("selected_site", site);
+        model.addAttribute("sites", siteList);
         model.addAttribute("request_site", request_site);
         return new ModelAndView("forecast", "forecastModel", model);
     }
