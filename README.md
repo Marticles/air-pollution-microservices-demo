@@ -8,7 +8,7 @@
 
 ## 微服务架构
 
-![cloud](img/cloud.png)
+![springcloud](img/springcloud.png)
 
 
 | 服务                                       | 端口 | 描述                       |
